@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'intern_management_system.apps.InternManagementSystemConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
