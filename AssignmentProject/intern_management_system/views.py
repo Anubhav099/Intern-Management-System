@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from . import models
 
 # Create your views here.
 def loginPage(request):
@@ -10,7 +11,7 @@ def loginPage(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, 'personal_info.html')
+            return redirect("/")
     return render(request, 'login.html')
 
 def logoutUser(request):
@@ -20,7 +21,15 @@ def logoutUser(request):
 def homeInternPage(request):
     if request.user.is_anonymous:
         return redirect("login")
-    return render(request, 'personal_info.html')
+        # retrive the logged in user data object
+    x = request.user
+    context = {
+        'a': x.username,
+        'b': x.role,
+    }
+    print(context)
+    return render(request, 'personal_info.html', context)
+        
 
 def leaveApplication(request):
     return render(request, 'leave_app.html')
